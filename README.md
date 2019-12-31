@@ -52,7 +52,8 @@ Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichte
 
 | Byte          | Name            | Beschreibung                                                      |
 | ------------- |-----------------|-------------------------------------------------------------------|
-| Byte 0-3      | HeaderLength    | Gibt die Länge des darauffolgenden Headers an                     |      
+| Byte 0-3      | HeaderLength    | Gibt die Länge des darauffolgenden Headers an                     |
+| Byte 4        |       adsf      | asdf                                                              |
 | Byte 4-n      | Header          | BSON codiertes Objekt bzw. Informationen über den Nachrichtentyp  |
 | Byte n-...    | User-Data       | Optionale Nutzdaten in Abhängigkeit des Nachrichtentyps           |
 
