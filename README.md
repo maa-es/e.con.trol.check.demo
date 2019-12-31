@@ -49,9 +49,12 @@ Die im folgenden Beschriebenen Schnittstellen sind technisch auf Basis von NetMQ
 
 ## Nachrichtenformat / Messageprotocol
 Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichten bzw. Meldungen, wird ein proprietäres Messageprotocol verwendet.
-Markdown | Less | Pretty
---- | --- | ---
-1 | 2 | 3
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 
 ## Schnittstelle zum Zugriff auf Bilder
