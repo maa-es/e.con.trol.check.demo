@@ -61,7 +61,13 @@ Bei Bedarf kann der Source-Code ebenfalls bereitgestellt werden.
 
 Folgende Nachrichten / Meldungen werden im Beispielprojekt verwendet:
 
-* `ImageMessage`
+| Name            | Beschreibung                                                        |
+|-----------------|---------------------------------------------------------------------|
+| `ImageMessage`  | Diese Nachricht wird zur Übertragung von Bilddaten verwendet        |
+| `StateMessage`  | Diese Meldung wird zum Übertagen von Statusinformationen verwendet  |
+| `ProcessStartMessage`| Diese Meldung wird von E.CON.TROL.CORE an die Prüfungen gesendet, wenn mit der Auswertung eines Behälters begonnen werden soll |
+
+
 
 
 ## Schnittstelle zum Zugriff auf Bilder
