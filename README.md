@@ -2,9 +2,8 @@
 Demo C#-Anwendung für die Implementierung einer (zusätzlichen) Prüfung bzw. den Zugriff auf aufgenommenen Bilder bei E.CON.TROL.
 
 #### Inhaltsverzechnis
-[Beschreibung](#beschreibung)
-
-[Systemarchitektur](#systemarchitektur)
+*[Beschreibung](#beschreibung)
+*[Systemarchitektur](#systemarchitektur)
 
 <a name="beschreibung"/>
 
