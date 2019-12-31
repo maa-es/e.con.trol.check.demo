@@ -4,6 +4,7 @@ Demo C#-Anwendung für die Implementierung einer (zusätzlichen) Prüfung bzw. d
 #### Inhaltsverzechnis
 * [Beschreibung](#beschreibung)
 * [Systemarchitektur](#systemarchitektur)
+* [NetMQ](#netmq)
 * [Schnittstellen](#schnittstellen)
 
 <a name="beschreibung"/>
@@ -41,8 +42,18 @@ Die Prüfung der BAR- bzw. Matrxcodes erfolgt über zwei (Flächen-)Kameras, die
 ### E.CON.TROL.CHECK.BOXSIDE
 Neben den oben genannten Prüfungen, die mit Bildern von Flächenkameras arbeiten, sind noch zwei Prüfungen vorhanden die die Behälterseiten mit einem 3D-Verfahren inspizieren. Die Bilder der 3D-Kameras werden aktuell nicht über eine Schnittstelle nach außen zur Verfügung gestellt.
 
-<a name="schnittstellen"/>
+<a name="netmq"/>
 
-##Schnittstellen
+## NetMQ
+Die im folgenden Beschriebenen Schnittstellen sind technisch auf Basis von NetMQ (https://github.com/zeromq/netmq) realisiert. Es wird hier das [Push-Pull-Pattern](https://netmq.readthedocs.io/en/latest/push-pull/) für das Zurückmelden der Status- und Ergebnismeldungen von den Prüfungen an E.CON.TROL.CORE sowie das [Pub-Sub-Pattern](https://netmq.readthedocs.io/en/latest/pub-sub/) für das Übertragen der Bilder und das Starten der Auswertungen seitens E.CON.TROL.CORE verwendet.
+
+## Nachrichtenformat / Messageprotocol
+Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichten bzw. Meldungen, wird ein proprietäres Messageprotocol verwendet.
+Markdown | Less | Pretty
+--- | --- | ---
+
+
+## Schnittstelle zum Zugriff auf Bilder
+
 https://github.com/zeromq/netmq
-Die Bilder sämtlicher Flächenkameras werden über NetQ
+Die Bilder sämtlicher Flächenkameras werden über NetMQ
