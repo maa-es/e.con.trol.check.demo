@@ -79,6 +79,7 @@ Nachrichten von E.CON.TROL werden über einen Publisher-Socket verschickt. Die P
 
 ## Nachrichten von E.CON.TROL.CHECK.X zu E.CON.TROL.CORE
 Die Nachrichten bzw. Rückmeldungen der Prüfungen an den E.CON.TROL.CORE werden über einen PushSocket versendet. Die Prüfungen (E.CON.TROL.CHECK.X) instanziieren jeweils einen PushSocket und verbinden diesen zum Port 55556 (z.B. "tcp://10.134.3.154:55556"). Folgende Meldungen werden von den Prüfungen (E.CON.TROL.CHECK.X) an den E.CON.TROL.CORE versendet:
+
 | Name            | Beschreibung                                                        |
 |-----------------|---------------------------------------------------------------------|
 | `StateMessage`  | Diese Meldung wird zum Übertagen von Statusinformationen verwendet  |
@@ -89,6 +90,7 @@ Die Nachrichten bzw. Rückmeldungen der Prüfungen an den E.CON.TROL.CORE werden
 ## Nachrichten zur Bildübertragung
 Die aufgenommenen Bilder der Flächenkameras werden ebenfalls über einen Publisher-Socket verteilt. Um Bilder zu empfangen ist es erforderlich, einen Subscriber-Socket zu instanziieren und diesen z.B. zu folgendem Endpunkt zu verbinden: "tcp://10.134.3.154:55562". 
 Die letzte Ziffer der Portnummer gibt hier die Nummer der Kamera an (in diesem Fall CameraNumber 2).
+
 | Name            | Beschreibung                                                        |
 |-----------------|---------------------------------------------------------------------|
 | `ImageMessage`  | Diese Nachricht wird zur Übertragung von Bilddaten verwendet        |
