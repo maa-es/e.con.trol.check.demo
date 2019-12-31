@@ -48,15 +48,20 @@ Neben den oben genannten Prüfungen, die mit Bildern von Flächenkameras arbeite
 Die im folgenden Beschriebenen Schnittstellen sind technisch auf Basis von NetMQ (https://github.com/zeromq/netmq) realisiert. Es wird hier das [Push-Pull-Pattern](https://netmq.readthedocs.io/en/latest/push-pull/) für das Zurückmelden der Status- und Ergebnismeldungen von den Prüfungen an E.CON.TROL.CORE sowie das [Pub-Sub-Pattern](https://netmq.readthedocs.io/en/latest/pub-sub/) für das Übertragen der Bilder und das Starten der Auswertungen seitens E.CON.TROL.CORE verwendet.
 
 ## Nachrichtenformat / Messageprotocol
-Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichten bzw. Meldungen, wird ein proprietäres Messageprotocol verwendet.
+Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichten bzw. Meldungen, wird ein proprietäres Messageprotocol verwendet:
 
 | Byte          | Name            | Beschreibung                                                      |
 | ------------- |-----------------|-------------------------------------------------------------------|
 | Byte 0-3      | HeaderLength    | Gibt die Länge des darauffolgenden Headers an                     |
-| Byte 4        |       adsf      | asdf                                                              |
 | Byte 4-n      | Header          | BSON codiertes Objekt bzw. Informationen über den Nachrichtentyp  |
 | Byte n-...    | User-Data       | Optionale Nutzdaten in Abhängigkeit des Nachrichtentyps           |
 
+Das Encoding/Decoding der Nachrichten erfolgt über Funktionalität die in dem Nuget-Paket [NetMq.Messages](https://github.com/maa-es/e.con.trol.check.demo/blob/master/E.CON.TROL.NuGetPackages/NetMq.Messages.1.0.1.nupkg) gekapselt ist. 
+Bei Bedarf kann der Source-Code ebenfalls bereitgestellt werden.
+
+Folgende Nachrichten / Meldungen werden im Beispielprojekt verwendet:
+
+* `ImageMessage`
 
 
 ## Schnittstelle zum Zugriff auf Bilder
