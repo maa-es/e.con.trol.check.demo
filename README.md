@@ -50,11 +50,12 @@ Die im folgenden Beschriebenen Schnittstellen sind technisch auf Basis von NetMQ
 ## Nachrichtenformat / Messageprotocol
 Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichten bzw. Meldungen, wird ein proprietäres Messageprotocol verwendet.
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| Byte          | Name            | Beschreibung                                                      |
+| ------------- |-----------------|-------------------------------------------------------------------|
+| Byte 0-3      | HeaderLength    | Gibt die Länge des darauffolgenden Headers an                     |      
+| Byte 4-n      | Header          | BSON codiertes Objekt bzw. Informationen über den Nachrichtentyp  |
+| Byte n-...    | User-Data       | Optionale Nutzdaten in Abhängigkeit des Nachrichtentyps           |
+
 
 
 ## Schnittstelle zum Zugriff auf Bilder
