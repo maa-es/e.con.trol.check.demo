@@ -5,7 +5,10 @@ Demo C#-Anwendung für die Implementierung einer (zusätzlichen) Prüfung bzw. d
 * [Beschreibung](#beschreibung)
 * [Systemarchitektur](#systemarchitektur)
 * [NetMQ](#netmq)
-* [Schnittstellen](#schnittstellen)
+* [Nachrichtenformat / Messageprotocol](messageprotocol)
+* [Nachrichten von E.CON.TROL.CORE zu E.CON.TROL.CHECK.X](#core2check)
+* [Nachrichten von E.CON.TROL.CHECK.X zu E.CON.TROL.CORE](#check2core)
+* [Nachrichten zur Bildübertragung](#imagemessage)
 
 <a name="beschreibung"/>
 
@@ -47,6 +50,8 @@ Neben den oben genannten Prüfungen, die mit Bildern von Flächenkameras arbeite
 ## NetMQ
 Die im folgenden Beschriebenen Schnittstellen sind technisch auf Basis von NetMQ (https://github.com/zeromq/netmq) realisiert. Es wird hier das [Push-Pull-Pattern](https://netmq.readthedocs.io/en/latest/push-pull/) für das Zurückmelden der Status- und Ergebnismeldungen von den Prüfungen an E.CON.TROL.CORE sowie das [Pub-Sub-Pattern](https://netmq.readthedocs.io/en/latest/pub-sub/) für das Übertragen der Bilder und das Starten der Auswertungen seitens E.CON.TROL.CORE verwendet.
 
+<a name="messageprotocol"/>
+
 ## Nachrichtenformat / Messageprotocol
 Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichten bzw. Meldungen, wird ein proprietäres Messageprotocol verwendet:
 
@@ -59,18 +64,32 @@ Für die über [NetMQ](https://github.com/zeromq/netmq) übertragenen Nachrichte
 Das Encoding/Decoding der Nachrichten erfolgt über Funktionalität die in dem Nuget-Paket [NetMq.Messages](https://github.com/maa-es/e.con.trol.check.demo/blob/master/E.CON.TROL.NuGetPackages/NetMq.Messages.1.0.1.nupkg) gekapselt ist. 
 Bei Bedarf kann der Source-Code ebenfalls bereitgestellt werden.
 
-Folgende Nachrichten / Meldungen werden im Beispielprojekt verwendet:
+<a name="core2check"/>
+
+## Nachrichten von E.CON.TROL.CORE zu E.CON.TROL.CHECK.X
+Nachrichten von E.CON.TROL werden über einen Publisher-Socket verschickt. Die Prüfungen (E.CON.TROL.CHECK.X) verbinden sich mit einen Subscriber-Socket zum Port: 55555 (z.B. "tcp://10.134.3.154:55555") und registrieren sich für alle Meldungen mit ihrem jeweiligen Prüfungsnamen (z.B. Topic == E.CON.TROL.CHECK.BOXBOTTOM). Folgende Meldungen werden von E.CON.TROL.CORE zu E.CON.TROL.CHECK.X versendet:
 
 | Name            | Beschreibung                                                        |
 |-----------------|---------------------------------------------------------------------|
-| `ImageMessage`  | Diese Nachricht wird zur Übertragung von Bilddaten verwendet        |
 | `StateMessage`  | Diese Meldung wird zum Übertagen von Statusinformationen verwendet  |
-| `ProcessStartMessage`| Diese Meldung wird von E.CON.TROL.CORE an die Prüfungen gesendet, wenn mit der Auswertung eines Behälters begonnen werden soll |
+| `ProcessStartMessage` | Diese Meldung wird von E.CON.TROL.CORE an die Prüfungen gesendet, wenn mit der Auswertung eines Behälters begonnen werden soll |
+| `ProcessCancelMessage` | Diese Meldung wird von E.CON.TROL.CORE an die Prüfungen gesendet, wenn die Auswertung eines Behälters abgebrochen werden soll |
 
+<a name="check2core"/>
 
+## Nachrichten von E.CON.TROL.CHECK.X zu E.CON.TROL.CORE
+Die Nachrichten bzw. Rückmeldungen der Prüfungen an den E.CON.TROL.CORE werden über einen PushSocket versendet. Die Prüfungen (E.CON.TROL.CHECK.X) instanziieren jeweils einen PushSocket und verbinden diesen zum Port 55556 (z.B. "tcp://10.134.3.154:55556"). Folgende Meldungen werden von den Prüfungen (E.CON.TROL.CHECK.X) an den E.CON.TROL.CORE versendet:
+| Name            | Beschreibung                                                        |
+|-----------------|---------------------------------------------------------------------|
+| `StateMessage`  | Diese Meldung wird zum Übertagen von Statusinformationen verwendet  |
+| `ProcessFinishedMessage` | Diese Meldung wird von den Prüfungen an E.CON.TROL.CORE gesendet, um das Prüfergebnis des aktuell geprüften Behälters zu melden |
 
+<a name="imagemessage"/>
 
-## Schnittstelle zum Zugriff auf Bilder
+## Nachrichten zur Bildübertragung
+Die aufgenommenen Bilder der Flächenkameras werden ebenfalls über einen Publisher-Socket verteilt. Um Bilder zu empfangen ist es erforderlich, einen Subscriber-Socket zu instanziieren und diesen z.B. zu folgendem Endpunkt zu verbinden: "tcp://10.134.3.154:55562". 
+Die letzte Ziffer der Portnummer gibt hier die Nummer der Kamera an (in diesem Fall CameraNumber 2).
+| Name            | Beschreibung                                                        |
+|-----------------|---------------------------------------------------------------------|
+| `ImageMessage`  | Diese Nachricht wird zur Übertragung von Bilddaten verwendet        |
 
-https://github.com/zeromq/netmq
-Die Bilder sämtlicher Flächenkameras werden über NetMQ
